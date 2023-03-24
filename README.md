@@ -3,6 +3,7 @@
 ## Requirements
 
 - .env file in root directory (with index.js, package.json)
+
 ![image](https://user-images.githubusercontent.com/75338985/227611111-8cf936bc-7692-4f4e-b269-4279670c225f.png)
 
 Inside of the .env file put these two values:
@@ -25,6 +26,7 @@ $ npm run dev
 ```
 
 Expected result:
+
 ![image](https://user-images.githubusercontent.com/75338985/227611868-20cdf626-55b9-49f6-8149-7f396d4147e3.png)
 
 
