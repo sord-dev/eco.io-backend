@@ -32,6 +32,8 @@ Expected result:
 
 ## Routes
 
+**auth routes**
+
 | Route | Description |
 |--------------|-------------|
 | POST /auth/login {user details in body} | login to existing account |
