@@ -22,7 +22,7 @@ app.use(
 );
 
 // routes
-app.get("/", protectRoute, (req, res) => {
+app.get("/", (req, res) => {
   res.json({
     todo: [
       "allow updating and deleting of users",
