@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 
 const User = require("../models/user");
-// const Token = require('../models/token');
 
 async function register(req, res) {
   try {
@@ -22,22 +21,49 @@ async function register(req, res) {
 
 async function login(req, res) {
   const data = req.body;
+
+  if (!data.username || !data.password) {
+    return res.status(422).json({ error: "Incorrect input." });
+  }
+
   try {
     const user = await User.getOneByUsername(data.username);
 
-    const authenticated = await bcrypt.compare(data.password, user["password"]);
-
-    if (!authenticated) {
-      throw new Error("Incorrect credentials.");
-    } else {
-      res.status(200).json({ authenticated: true });
+    if (req.session.authenticated) {
+      return res.status(200).json(req.session);
     }
+
+    const comparePassword = await bcrypt.compare(
+      data.password,
+      user["password"]
+    );
+
+    if (!comparePassword) {
+      throw new Error("Incorrect credentials.");
+    }
+
+    user["password"] = null;
+    req.session.authenticated = true;
+    req.session.user = user;
+    return res.status(200).json(req.session);
   } catch (err) {
-    res.status(403).json({ error: err.message });
+    return res.status(403).json({ error: err.message });
+  }
+}
+
+async function logout(req, res) {
+  if (req.session.authenticated) {
+    req.session.authenticated = false;
+    req.session.user = {};
+
+    return res.status(200).json(req.session);
+  } else {
+    return res.status(400).json({ message: "ur not logged in." });
   }
 }
 
 module.exports = {
   register,
   login,
+  logout,
 };
