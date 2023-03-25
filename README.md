@@ -10,8 +10,10 @@ Inside of the .env file put these two values:
 ```
 PORT=3000
 DB_URL=[Elephant SQL Instance URL](https://customer.elephantsql.com/instance/create)
+SESSION_SECRET=dhjkasdfasdhsdfkjsdfahgasdffasdgsdgsdfasdf
 ```
 
+*any long string will be sufficient in the SESSION_SECRET row*
 
 - Inside of a terminal from the root directory, install the depenancies of the project.
 
@@ -32,12 +34,20 @@ Expected result:
 
 ## Routes
 
+**main routes**
+
+| Route | Description |
+|--------------|-------------|
+| GET / | Show current todos |
+
+
 **auth routes**
 
 | Route | Description |
 |--------------|-------------|
 | POST /auth/login {user details in body} | login to existing account |
 | POST /auth/register {user details in body} | create a user |
+| GET /auth/logout {nothing in body} | logout |
 
 
 login user shape: 
