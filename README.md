@@ -1,5 +1,14 @@
 # eco.io-backend
 
+## TLDR WHAT ARE THE ROUTES?
+
+| Route | Description |
+|--------------|-------------|
+| GET / | Show current todos |
+| GET /events/all  | show all events ordered by upvotes |
+| POST /auth/login {user details in body} | login to existing account |
+| GET /auth/logout {nothing in body} | logout |
+
 ## Requirements
 
 - .env file in root directory (with index.js, package.json)
@@ -33,16 +42,6 @@ Expected result:
 
 
 ## Routes
-
-**main routes**
-
-| Route | Description |
-|--------------|-------------|
-| GET / | Show current todos |
-| GET /events/all  | show all events ordered by upvotes |
-| POST /auth/login {user details in body} | login to existing account |
-| GET /auth/logout {nothing in body} | logout |
-
 
 **auth routes**
 
@@ -107,3 +106,9 @@ event vote shape:
 "votes": -1
 }
 ```
+
+**misc routes**
+
+| Route | Description |
+|--------------|-------------|
+| GET / | Show current todos |
