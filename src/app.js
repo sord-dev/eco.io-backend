@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
-const store = new session.MemoryStore()
+const store = new session.MemoryStore();
 
 const userRouter = require("./routes/authRoutes");
 const eventRouter = require("./routes/eventRoutes");
