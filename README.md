@@ -1,5 +1,14 @@
 # eco.io-backend
 
+## TLDR WHAT ARE THE ROUTES?
+
+| Route | Description |
+|--------------|-------------|
+| GET / | Show current todos |
+| GET /events/all  | show all events ordered by upvotes |
+| POST /auth/login {user details in body} | login to existing account |
+| GET /auth/logout {nothing in body} | logout |
+
 ## Requirements
 
 - .env file in root directory (with index.js, package.json)
@@ -34,13 +43,6 @@ Expected result:
 
 ## Routes
 
-**main routes**
-
-| Route | Description |
-|--------------|-------------|
-| GET / | Show current todos |
-
-
 **auth routes**
 
 | Route | Description |
@@ -49,8 +51,8 @@ Expected result:
 | POST /auth/register {user details in body} | create a user |
 | GET /auth/logout {nothing in body} | logout |
 
-
 login user shape: 
+*to /auth/login*
 ```
 {
     "username": "test_usr",
@@ -59,6 +61,7 @@ login user shape:
 ```
 
 register user shape: 
+*to /auth/register*
 ```
 {
     "username": "admin",
@@ -67,3 +70,45 @@ register user shape:
     "isAdmin": true
 }
 ```
+
+
+**event routes**
+
+| Route | Description |
+|--------------|-------------|
+| GET /events/all  | show all events ordered by upvotes |
+| GET /events/ LOGGED IN | get all user events (if admin) |
+| PATCH events/v/:event_id | vote for an event (if you don't own it) |
+| POST /events/ {event object in body} | create a new event (if admin) |
+| DELETE events/:event_id | delete a event |
+
+event shape:
+*to /events/*
+```
+{
+"event_id": 1,
+"owner_id": 2,
+"upvotes": 99,
+"title": "This is the title of the event.",
+"description": "this is the description of the even",
+"location": "London"
+}
+```
+
+event vote shape:
+*to /events/v/:event_id*
+```
+{
+"votes": 1
+}
+// OR
+{
+"votes": -1
+}
+```
+
+**misc routes**
+
+| Route | Description |
+|--------------|-------------|
+| GET / | Show current todos |

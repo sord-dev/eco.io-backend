@@ -5,7 +5,7 @@ function protectRoute(req, res, next) {
     console.log(`user ${user.username} just accessed a protected route.`);
     next();
   } else {
-    res.status(401).json({ message: "Sorry buddy, authed kids only." });
+    res.status(401).json({ message: "You need to be logged in to see this route." });
   }
 }
 

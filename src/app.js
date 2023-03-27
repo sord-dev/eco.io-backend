@@ -4,7 +4,7 @@ const session = require("express-session");
 const store = new session.MemoryStore()
 
 const userRouter = require("./routes/authRoutes");
-const protectRoute = require("./middleware/protectRoute");
+const eventRouter = require("./routes/eventRoutes");
 
 const app = express();
 
@@ -39,6 +39,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", userRouter);
+
+app.use("/events", eventRouter);
 
 
 module.exports = app;
