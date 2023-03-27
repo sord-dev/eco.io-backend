@@ -26,14 +26,14 @@ app.get("/", (req, res) => {
   res.json({
     todo: [
       "allow updating and deleting of users",
-      "allow storage, creating, updating and deleting of events",
-      "get sessions working",
     ],
     done: [
+      "allow storage, creating, updating and deleting of events",
       "allow storage, creating of users",
       "create db",
       "build auth",
       "hash passwords",
+      "get sessions working",
     ],
   });
 });

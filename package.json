@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon .",
-    "setup-db": "node ./src/config/setup-db.js"
+    "setup-db": "node ./src/config/setup-db.js",
+    "test": "jest . --forceExit --watchAll",
+    "test-coverage": "jest . --coverage --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,8 @@
     "pg": "^8.10.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
   }
 }
