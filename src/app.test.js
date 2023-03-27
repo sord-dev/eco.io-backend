@@ -9,7 +9,8 @@ describe('Event Routes - /events', () => {
         const response = await request.get('/events/all');
 
         expect(response.statusCode).toBe(200);
-        
+        expect(typeof response.body[0].event_id).toBe("number");
+        expect(typeof response.body[0].description).toBe("string");
     });
     })
 
