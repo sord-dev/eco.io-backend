@@ -5,12 +5,10 @@ const request = supertest(app);
 
 describe('Event Routes - /events - not logged in', () => {
 
-    it('GET /events/all - Should get all events.', async () => {
+    it('GET /events/all - Should return with 401 unauthorised.', async () => {
         const response = await request.get('/events/all');
 
-        expect(response.statusCode).toBe(200);
-        expect(typeof response.body[0].event_id).toBe("number");
-        expect(typeof response.body[0].description).toBe("string");
+        expect(response.statusCode).toBe(401);
     });
 
     it('GET /events - Should respond with unauthorised', async () => {

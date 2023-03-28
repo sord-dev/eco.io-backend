@@ -5,7 +5,7 @@ const controller = require('../controllers/eventController.js')
 
 
 // GET events/all - get all events
-eventRouter.get('/all', controller.getAllEvents);
+eventRouter.get('/all', protectRoute, controller.getAllEvents);
 
 // PATCH events/v/:event_id - upvote or downvote an event
 eventRouter.patch('/v/:event_id', protectRoute, controller.upvoteEvent);
