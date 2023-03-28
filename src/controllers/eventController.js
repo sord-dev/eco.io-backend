@@ -41,7 +41,7 @@ const deleteEvent = async (req, res) => {
         return res.status(404).json({ error: error.message })
     }
 }
-// POST events/ - get an account's events
+// POST events/ - create an event
 const createEvent = async (req, res) => {
     if (!req.session.user.isAdmin) {
         return res.status(401).json({ error: 'sorry buddy, admins only.' })
