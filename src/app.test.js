@@ -53,7 +53,7 @@ const makeid = require('./helpers/makeid.js');
 
 // initialising test database with test db url
 let db = new Pool({
-    connectionString: process.env.TEST_DB_URL
+    connectionString: "postgres://ixcaudug:VDR2bn6KlbHgKwI6TmRAvAMmZESR5VIJ@trumpet.db.elephantsql.com/ixcaudug"
 });
 
 // seeding database with the testing data
