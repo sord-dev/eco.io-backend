@@ -1,5 +1,6 @@
+// create test database (doesn't look like it's being used but it is)
+const db = require('./config/postgres-test-db.js');
 const app = require('./app.js');
-const fs = require('fs')
 const supertest = require('supertest-session');
 
 const request = supertest(app);
@@ -20,7 +21,6 @@ describe('Event Routes - /events - not logged in', () => {
         expect(response.statusCode).toBe(401);
         expect(JSON.stringify(response.body)).toBe(message);
     });
-
 });
 
 describe('Auth Routes - /auth', () => {
@@ -46,24 +46,7 @@ describe('Auth Routes - /auth', () => {
     });
 });
 
-
-// creating test database
-const { Pool } = require('pg');
 const makeid = require('./helpers/makeid.js');
-
-// initialising test database with test db url
-let db = new Pool({
-    connectionString: "postgres://ixcaudug:VDR2bn6KlbHgKwI6TmRAvAMmZESR5VIJ@trumpet.db.elephantsql.com/ixcaudug"
-});
-
-// seeding database with the testing data
-const sql = fs.readFileSync(process.cwd() + '/src/config/setup.sql').toString();
-db.query(sql)
-    .then(data => {
-        db.end();
-        console.log("Set-up complete.");
-    })
-    .catch(error => console.log(error));
 
 describe('Database Tests - /event', () => {
     it('POST /auth/login - Should log me in as admin.', async () => {
