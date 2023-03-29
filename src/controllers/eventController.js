@@ -1,4 +1,5 @@
 const Event = require('../models/Event.js')
+const Booking = require('../models/Booking.js')
 
 
 // GET events/ - get an account's events
@@ -52,6 +53,7 @@ const deleteEvent = async (req, res) => {
         return res.status(404).json({ error: error.message })
     }
 }
+
 // POST events/ - create an event
 const createEvent = async (req, res) => {
     let { body } = req;
@@ -99,8 +101,6 @@ const upvoteEvent = async (req, res) => {
     let event = await Event.find(req.params.event_id);
 
     if (event) {
-
-
         try {
             let vote = body.vote > 0 ? 1 : -1;
 

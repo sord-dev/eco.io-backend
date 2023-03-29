@@ -9,7 +9,7 @@ userRouter.get('/top', controller.getTopUsers);
 // GET users/bookings - get all the users bookings depending on who's signed in
 userRouter.get('/bookings', protectRoute, controller.getUserBookings);
 
-// GET users/bookings - get all the users bookings depending on who's signed in
+// POST users/bookings - create a booking { user_id, event_id } - needs improving
 userRouter.post('/bookings', protectRoute, controller.createBooking);
 
 // GET users/h/bookings - get all the users attended bookings depending on who's signed in

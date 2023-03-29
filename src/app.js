@@ -5,7 +5,13 @@ const store = new session.MemoryStore();
 
 const userRouter = require("./routes/userRoutes");
 const eventRouter = require("./routes/eventRoutes");
-const authRoutes = require("./routes/authRoutes");
+const authRoutes = require("./routes/authRoutes"); 
+
+function index(req, res) {
+  let data = require('./config/apidocs.js')
+
+  return res.status(200).json(data)
+}
 
 const app = express();
 
@@ -23,22 +29,7 @@ app.use(
 );
 
 // routes
-app.get("/", (req, res) => {
-  res.json({
-    todo: [
-      "leaderboard functionality",
-    ],
-    done: [
-      "allow storage, creating, updating and deleting of events",
-      "allow storage, creating of users",
-      "create db",
-      "build auth",
-      "hash passwords",
-      "get sessions working",
-    ],
-  });
-});
-
+app.use('/', index)
 app.use("/auth", authRoutes);
 app.use("/events", eventRouter);
 app.use('/users', userRouter);
