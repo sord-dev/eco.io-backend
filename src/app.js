@@ -21,7 +21,6 @@ app.use(cors({ origin: 'http://localhost:2000', credentials: true }));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 30000 },
     saveUninitialized: false,
     resave: false,
     store
@@ -29,7 +28,7 @@ app.use(
 );
 
 // routes
-app.use('/', index)
+app.get('/', index)
 app.use("/auth", authRoutes);
 app.use("/events", eventRouter);
 app.use('/users', userRouter);

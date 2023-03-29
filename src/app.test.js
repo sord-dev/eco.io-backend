@@ -49,7 +49,7 @@ describe('User Routes - /users', () => {
     // create temp tables
     beforeEach(async () => await createTestDBEnv())
 
-    // Drop temporary tables
+    // drop temporary tables
     afterEach(async () => await destroyTestDBEnv())
 
     it('POST /auth/login - Should log me in as admin.', async () => {
@@ -93,7 +93,7 @@ describe('DB TESTS - /events + /auth', () => {
     // create temp tables
     beforeEach(async () => await createTestDBEnv())
 
-    // Drop temporary tables
+    // drop temporary tables
     afterEach(async () => await destroyTestDBEnv())
 
     it('POST X2 ["/auth/register", "/auth/login"] - Should register a new admin, then log me in as the new admin', async () => {
