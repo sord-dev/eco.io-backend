@@ -103,10 +103,10 @@ const upvoteEvent = async (req, res) => {
     let event = await Event.find(req.params.event_id);
 
     if (event) {
-        // // check if user owns event
-        // if (session.user.user_id === event.owner_id) {
-        //     return res.status(401).json({ error: 'sorry buddy, cant vote on your own event.' })
-        // }
+        // check if user owns event
+        if (session.user.user_id === event.owner_id) {
+            return res.status(401).json({ error: 'sorry buddy, cant vote on your own event.' })
+        }
 
         try {
             let vote = body.vote > 0 ? 1 : -1;

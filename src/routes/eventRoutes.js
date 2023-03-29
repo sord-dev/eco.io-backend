@@ -10,6 +10,9 @@ eventRouter.get('/all', protectRoute, controller.getAllEvents);
 // PATCH events/v/:event_id - upvote or downvote an event
 eventRouter.patch('/v/:event_id', protectRoute, controller.upvoteEvent);
 
+// PATCH events/a/:event_id - AS AN ADMIN approve an event
+eventRouter.patch('/a/:event_id', protectRoute, controller.approveEvent);
+
 // GET events/ - get an account's events
 eventRouter.get('/', protectRoute, controller.getUserEvents);
 
