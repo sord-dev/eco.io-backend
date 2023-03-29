@@ -11,7 +11,7 @@ class Event {
   }
 
   static async getAll() {
-    const response = await db.query("SELECT * FROM events ORDER BY upvotes DESC;");
+    const response = await db.query("SELECT * FROM events WHERE approved = false ORDER BY upvotes DESC;");
 
     if (response.rows.length < 1) {
       throw new Error("Unable to locate events.");
@@ -24,7 +24,7 @@ class Event {
     const response = await db.query("SELECT * FROM events WHERE approved = true ORDER BY upvotes DESC;");
 
     if (response.rows.length < 1) {
-      throw new Error("Unable to locate events.");
+      throw new Error("No events found.");
     }
 
     return response.rows.map(e => new Event(e));

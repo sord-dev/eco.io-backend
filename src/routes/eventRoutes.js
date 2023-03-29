@@ -3,8 +3,11 @@ const eventRouter = require('express').Router();
 const protectRoute = require("../middleware/protectRoute");
 const controller = require('../controllers/eventController.js')
 
-// GET events/all - get all events
+// GET events/all - get all unapproved events
 eventRouter.get('/all', protectRoute, controller.getAllEvents);
+
+// GET events/a/all - get all approved events
+eventRouter.get('/a/all', protectRoute, controller.getAllApprovedEvents);
 
 // PATCH events/v/:event_id - upvote or downvote an event
 eventRouter.patch('/v/:event_id', protectRoute, controller.upvoteEvent);
