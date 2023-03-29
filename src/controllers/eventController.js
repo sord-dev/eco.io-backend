@@ -23,6 +23,17 @@ const getAllEvents = async (req, res) => {
     }
 }
 
+// GET events/a/all - get all
+const getAllApprovedEvents = async (req, res) => {
+    try {
+        let response = await Event.getAllApproved();
+
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(404).json({ error: error.message })
+    }
+}
+
 const deleteEvent = async (req, res) => {
     if (!req.session.user.isAdmin) {
         return res.status(401).json({ error: 'sorry buddy, admins only.' })
@@ -41,7 +52,7 @@ const deleteEvent = async (req, res) => {
         return res.status(404).json({ error: error.message })
     }
 }
-// POST events/ - get an account's events
+// POST events/ - create an event
 const createEvent = async (req, res) => {
     if (!req.session.user.isAdmin) {
         return res.status(401).json({ error: 'sorry buddy, admins only.' })
@@ -101,7 +112,7 @@ const upvoteEvent = async (req, res) => {
             let vote = body.vote > 0 ? 1 : -1;
 
             let updated = await event.vote(vote);
-            
+
             return res.status(204).json(updated);
         } catch (error) {
             return res.json(error);
@@ -111,4 +122,40 @@ const upvoteEvent = async (req, res) => {
     }
 }
 
-module.exports = { getUserEvents, createEvent, deleteEvent, updateEvent, upvoteEvent, getAllEvents }
+// POST events/a/:event_id - AS AN ADMIN, approve an event
+const approveEvent = async (req, res) => {
+    let { session, body } = req;
+
+    if (!session.user.isAdmin) {
+        return res.status(401).json({ error: 'sorry buddy, admins only.' })
+    }
+
+    if (!body.approval) {
+        return res.status(422).json({ error: 'incorrect input, please include an approval key with a boolean' })
+    }
+
+    let event = await Event.find(req.params.event_id);
+
+    if (event) {
+
+        try {
+            let updated = await event.approve(body.approval);
+
+            return res.status(200).json(updated);
+        } catch (error) {
+            return res.json(error);
+        }
+    } else {
+        return res.json({ error: "Event not found." });
+    }
+}
+
+module.exports = {
+    getUserEvents,
+    createEvent,
+    deleteEvent,
+    updateEvent,
+    upvoteEvent,
+    getAllEvents,
+    approveEvent
+}
