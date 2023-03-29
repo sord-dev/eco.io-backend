@@ -13,9 +13,11 @@ class User {
     const response = await db.query("SELECT * FROM users WHERE user_id = $1", [
       user_id,
     ]);
+
     if (response.rows.length != 1) {
       throw new Error("Unable to locate user.");
-    }
+    };
+
     return new User(response.rows[0]);
   }
 
