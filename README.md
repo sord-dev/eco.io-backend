@@ -1,5 +1,8 @@
 # eco.io-backend
 
+![image](https://user-images.githubusercontent.com/75338985/228684978-dee0216b-39a8-4468-a62f-5b438540377f.png)
+
+
 ## Requirements
 
 - .env file in root directory (with index.js, package.json)
