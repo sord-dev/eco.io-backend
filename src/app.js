@@ -3,8 +3,9 @@ const cors = require("cors");
 const session = require("express-session");
 const store = new session.MemoryStore();
 
-const userRouter = require("./routes/authRoutes");
+const userRouter = require("./routes/userRoutes");
 const eventRouter = require("./routes/eventRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
@@ -25,7 +26,7 @@ app.use(
 app.get("/", (req, res) => {
   res.json({
     todo: [
-      "allow updating and deleting of users",
+      "leaderboard functionality",
     ],
     done: [
       "allow storage, creating, updating and deleting of events",
@@ -38,8 +39,9 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/auth", userRouter);
+app.use("/auth", authRoutes);
 app.use("/events", eventRouter);
+app.use('/users', userRouter);
 
 
 module.exports = app;

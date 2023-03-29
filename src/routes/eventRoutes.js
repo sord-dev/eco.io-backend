@@ -3,7 +3,6 @@ const eventRouter = require('express').Router();
 const protectRoute = require("../middleware/protectRoute");
 const controller = require('../controllers/eventController.js')
 
-
 // GET events/all - get all events
 eventRouter.get('/all', protectRoute, controller.getAllEvents);
 

@@ -65,8 +65,21 @@ async function logout(req, res) {
   }
 }
 
+async function getTopUsers(req, res) {
+
+  try {
+    let users = await User.listTopUsers();
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json({ error: err.message });
+  }
+
+
+}
+
 module.exports = {
   register,
   login,
   logout,
+  getTopUsers
 };
