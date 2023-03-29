@@ -110,6 +110,17 @@ async function getAllBookings(req, res) {
 
 }
 
+async function createBooking(req, res) {
+  let { body } = req;
+  try {
+    let response = await Booking.create(body);
+    return res.status(201).json(response);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+
+}
+
 module.exports = {
   register,
   login,
@@ -117,5 +128,6 @@ module.exports = {
   getTopUsers,
   getUserBookings,
   getAllBookings,
-  getUserBookingsHistory
+  getUserBookingsHistory,
+  createBooking
 };

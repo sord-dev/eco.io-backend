@@ -59,7 +59,7 @@ class Booking {
 
         console.log(response.rows);
 
-        return response.rows;
+        return response.rows[0];
     }
 
 }
