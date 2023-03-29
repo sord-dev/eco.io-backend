@@ -71,7 +71,8 @@ register user shape:
 | GET events/a/all  | get all approved events |
 | GET /events/ | get all user events (if admin) |
 | PATCH events/v/:event_id | vote for an event (if you don't own it) |
-| POST /events/ {event object in body} | create a new event (if admin) |
+| PATCH events/a/:event_id | approve an event |
+| POST /events/ {event object in body} | create a new event |
 | DELETE events/:event_id | delete a event |
 
 event shape:
