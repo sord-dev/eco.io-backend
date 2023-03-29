@@ -30,7 +30,8 @@ class User {
   }
 
   static async create(data) {
-    const { username, password, email, isAdmin } = data;
+    const { username, password, email, isAdmin = false } = data;
+
     let response = await db.query(
       "INSERT INTO users (username, password, email, isAdmin) VALUES ($1, $2, $3, $4) RETURNING user_id;",
       [username, password, email, isAdmin]
