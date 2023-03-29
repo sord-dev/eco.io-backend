@@ -1,12 +1,10 @@
-// create test database (doesn't look like it's being used but it is)
-const db = require('./config/postgres-test-db.js');
 const app = require('./app.js');
 const supertest = require('supertest-session');
+const { createTestDBEnv, destroyTestDBEnv } = require('./config/postgresdb.js');
 
 const request = supertest(app);
 
 describe('Event Routes - /events - not logged in', () => {
-
     it('GET /events/all - Should return with 401 unauthorised.', async () => {
         const response = await request.get('/events/all');
 
@@ -24,6 +22,7 @@ describe('Event Routes - /events - not logged in', () => {
 });
 
 describe('Auth Routes - /auth', () => {
+
     it('POST /auth/login - Should log me in as admin.', async () => {
         const response = await request.post('/auth/login').send({ username: "admin", password: "admin" });
 
@@ -46,45 +45,47 @@ describe('Auth Routes - /auth', () => {
     });
 });
 
-const makeid = require('./helpers/makeid.js');
+describe('DB TESTS - /events + /auth', () => {
+    // create temp tables
+    beforeEach(async () => await createTestDBEnv())
 
-describe('Database Tests - /event', () => {
-    it('POST /auth/login - Should log me in as admin.', async () => {
-        const response = await request.post('/auth/login').send({ username: "admin", password: "admin" });
+    // Drop temporary tables
+    afterEach(async () => await destroyTestDBEnv())
 
-        expect(response.statusCode).toBe(200);
-        expect(response.body.authenticated).toBe(true);
-    });
-
-    it('POST /event - Should create a new event as an admin.', async () => {
-        let payload = {
-            upvotes: 99, title: "This is a test event.", description: "I repeat, this is a test event. This description is just dummy text in order to make it look like there is some kind of even being described. If you've read this far I don't know wheather to commend or question you...", location: "London"
-        };
-        const response = await request.post('/events').send(payload);
-
-
-        expect(response.statusCode).toBe(201);
-    });
-
-    it('GET /auth/logout - Should log user out.', async () => {
-        const response = await request.get('/auth/logout');
-
-        expect(response.statusCode).toBe(200);
-        expect(response.body.authenticated).toBe(false);
-    });
-
-    it('POST X2 /auth/register - Should register, and login user.', async () => {
-        // create random username and register account
-        let hash = makeid(4)
-        let username = "test_user" + hash;
-        const response = await request.post('/auth/register').send({ username, email: "whocares@gmail.com", password: "test_password" });
+    it('POST X2 ["/auth/register", "/auth/login"] - Should register a new admin, then log me in as the new admin', async () => {
+        const response = await request.post('/auth/register').send({ username: "admin4", email: "pan@gmail.com", password: "admin", isAdmin: true });
 
         expect(response.statusCode).toBe(201);
 
-        // login with the created credentials
-        let response2 = await request.post('/auth/login').send({ username, password: "test_password" });
+        const response2 = await request.post('/auth/login').send({ username: "admin4", password: "admin" });
 
         expect(response2.statusCode).toBe(200);
         expect(response2.body.authenticated).toBe(true);
     });
+
+    it('POST X2, DEL ["/auth/login", "/events", "/events"] - Should log me in as admin and create an event, then delete the event', async () => {
+        const response = await request.post('/auth/login').send({ username: "admin", password: "admin" });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body.authenticated).toBe(true);
+
+        const response2 = await request.post('/events').send({
+            upvotes: 99,
+            title: "This is a test event.",
+            description: "I repeat, this is a test event. This description is just dummy text in order to make it look like there is some kind of even being described. If you've read this far I don't know wheather to commend or question you...",
+            location: "London"
+        });
+
+        expect(response2.statusCode).toBe(201);
+        expect(response2.body.approved).toBe(false);
+
+        let tempEventID = response2.body.event_id;
+
+        const response3 = await request.del(`/events/${tempEventID}`);
+
+        expect(response3.statusCode).toBe(200);
+        expect(typeof response3.body.event_id).toBe("number");
+        expect(typeof response3.body.approved).toBe("boolean");
+    });
+
 });

@@ -1,4 +1,4 @@
-const db = require('../config/postgresdb.js')
+const {db} = require('../config/postgresdb.js')
 
 class User {
   constructor({ user_id, username, email, password, isadmin }) {

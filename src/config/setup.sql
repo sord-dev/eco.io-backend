@@ -19,6 +19,7 @@ CREATE TABLE events (
     title VARCHAR(80) NOT NULL,
     description VARCHAR(280) NOT NULL,
     location VARCHAR(80) NOT NULL,
+    approved BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (owner_id) REFERENCES users (user_id),
     PRIMARY KEY (event_id)
 );
