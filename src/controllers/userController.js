@@ -11,9 +11,12 @@ async function register(req, res) {
     // Hash the password
     data["password"] = await bcrypt.hash(data["password"], salt);
 
-    const result = await User.create(data);
+    const user = await User.create(data);
 
-    res.status(201).send(result);
+    user["password"] = null;
+    req.session.authenticated = true;
+    req.session.user = user;
+    res.status(201).send(req.session);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

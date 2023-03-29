@@ -23,7 +23,7 @@ const getAllEvents = async (req, res) => {
     }
 }
 
-// GET events/a/all - get all
+// GET events/a/all - get all approved events
 const getAllApprovedEvents = async (req, res) => {
     try {
         let response = await Event.getAllApproved();
@@ -157,5 +157,6 @@ module.exports = {
     updateEvent,
     upvoteEvent,
     getAllEvents,
-    approveEvent
+    approveEvent,
+    getAllApprovedEvents
 }
