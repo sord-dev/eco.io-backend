@@ -1,4 +1,4 @@
-const {db} = require('../config/postgresdb.js')
+const { db } = require('../config/postgresdb.js')
 class Event {
   constructor({ event_id, owner_id, upvotes, title, description, location, approved }) {
     this.event_id = event_id;
@@ -98,14 +98,13 @@ class Event {
       throw new Error('Update Error')
     }
 
-    return country_id;
+    return { vote: 'successful' };
   }
 
 
   async vote(vote) {
-
     const response = await db.query(
-      "UPDATE events SET upvotes=$1 WHERE event_id=$2;",
+      "UPDATE events SET upvotes=$1 WHERE event_id=$2 RETURNING event_id;",
       [this.upvotes += vote, this.event_id]
     );
 

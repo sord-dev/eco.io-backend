@@ -54,10 +54,6 @@ const deleteEvent = async (req, res) => {
 }
 // POST events/ - create an event
 const createEvent = async (req, res) => {
-    if (!req.session.user.isAdmin) {
-        return res.status(401).json({ error: 'sorry buddy, admins only.' })
-    }
-
     let { body } = req;
 
     let data = { ...body, owner_id: req.session.user.user_id }
@@ -103,17 +99,14 @@ const upvoteEvent = async (req, res) => {
     let event = await Event.find(req.params.event_id);
 
     if (event) {
-        // check if user owns event
-        if (session.user.user_id === event.owner_id) {
-            return res.status(401).json({ error: 'sorry buddy, cant vote on your own event.' })
-        }
+
 
         try {
             let vote = body.vote > 0 ? 1 : -1;
 
             let updated = await event.vote(vote);
 
-            return res.status(204).json(updated);
+            return res.status(200).json(updated);
         } catch (error) {
             return res.json(error);
         }

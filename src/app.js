@@ -10,8 +10,8 @@ const authRoutes = require("./routes/authRoutes");
 const app = express();
 
 // middleware
-app.use(cors({ origin: 'http://localhost:2000', credentials: true }));
 app.use(express.json());
+app.use(cors({ origin: 'http://localhost:2000', credentials: true }));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
