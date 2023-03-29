@@ -70,7 +70,7 @@ async function getTopUsers(req, res) {
   try {
     let users = await User.listTopUsers();
     return res.status(200).json(users);
-  } catch (error) {
+  } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 
