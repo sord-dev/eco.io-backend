@@ -1,12 +1,13 @@
 const {db} = require('../config/postgresdb.js')
 
 class User {
-  constructor({ user_id, username, email, password, isadmin }) {
+  constructor({ user_id, username, email, password, isadmin, events_attended }) {
     this.user_id = user_id;
     this.username = username;
     this.email = email;
     this.password = password;
     this.isAdmin = isadmin;
+    this.events_attended = events_attended;
   }
 
   static async getOneById(user_id) {
@@ -44,6 +45,16 @@ class User {
     const newUser = await User.getOneById(newId);
     
     return newUser;
+  }
+
+  static async listTopUsers() {
+    const response = await db.query("SELECT user_id, username, isAdmin, events_attended FROM users ORDER BY events_attended DESC;");
+
+    if (response.rows.length < 1) {
+      throw new Error("Unable to list users.");
+    };
+
+    return response.rows.map(u => new User(u));
   }
 }
 

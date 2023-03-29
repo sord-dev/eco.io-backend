@@ -6,11 +6,12 @@ CREATE TABLE users (
     username VARCHAR(60) UNIQUE NOT NULL,
     email VARCHAR(120) NOT NULL,
     password VARCHAR(140) NOT NULL,
+    events_attended INT DEFAULT 0,
     isAdmin BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (user_id)
 );
 -- user 1 = admin, admin, admin@gmail.com, user 2 -- user, test123 test_user@gmail.com
-INSERT INTO users (username, password, email, isAdmin) VALUES ('admin', '$2b$10$wgc2myC/L8NmDGsfmonl1.2jlN2L8pWauyQG9XNoLUmjtlztr0kVy', 'admin@gmail.com', true), ('user', '$2b$10$Rg2AXCBalbVJb8p1eQZOL.Aq/Ir/RRU8tT17OvBHZtpSqL6mM4YJO', 'test_user@gmail.com', false);
+INSERT INTO users (username, password, email, isAdmin, events_attended) VALUES ('admin', '$2b$10$wgc2myC/L8NmDGsfmonl1.2jlN2L8pWauyQG9XNoLUmjtlztr0kVy', 'admin@gmail.com', true, 70), ('Steve', '$2b$10$Rg2AXCBalbVJb8p1eQZOL.Aq/Ir/RRU8tT17OvBHZtpSqL6mM4YJO', 'test_user@gmail.com', false, 32), ('Stef', '$2b$10$Rg2AXCBalbVJb8p1eQZOL.Aq/Ir/RRU8tT17OvBHZtpSqL6mM4YJO', 'test_user223@gmail.com', false, 47), ('Vitali', '$2b$10$Rg2AXCBalbVJb8p1eQZOL.Aq/Ir/RRU8tT17OvBHZtpSqL6mM4YJO', 'test_user22321@gmail.com', false, 90);
 
 CREATE TABLE events (
     event_id INT GENERATED ALWAYS AS IDENTITY,
