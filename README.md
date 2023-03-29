@@ -1,14 +1,5 @@
 # eco.io-backend
 
-## TLDR WHAT ARE THE ROUTES?
-
-| Route | Description |
-|--------------|-------------|
-| GET / | Show current todos |
-| GET /events/all  | show all events ordered by upvotes |
-| POST /auth/login {user details in body} | login to existing account |
-| GET /auth/logout {nothing in body} | logout |
-
 ## Requirements
 
 - .env file in root directory (with index.js, package.json)
@@ -72,12 +63,13 @@ register user shape:
 ```
 
 
-**event routes**
+**event routes** - AUTH PROTECTED
 
 | Route | Description |
 |--------------|-------------|
 | GET /events/all  | show all events ordered by upvotes |
-| GET /events/ LOGGED IN | get all user events (if admin) |
+| GET events/a/all  | get all approved events |
+| GET /events/ | get all user events (if admin) |
 | PATCH events/v/:event_id | vote for an event (if you don't own it) |
 | POST /events/ {event object in body} | create a new event (if admin) |
 | DELETE events/:event_id | delete a event |
@@ -107,8 +99,8 @@ event vote shape:
 }
 ```
 
-**misc routes**
+**user routes**
 
 | Route | Description |
 |--------------|-------------|
-| GET / | Show current todos |
+| GET /top | get the top 10 users ordered by events attended |
