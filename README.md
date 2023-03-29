@@ -104,4 +104,7 @@ event vote shape:
 
 | Route | Description |
 |--------------|-------------|
-| GET /top | get the top 10 users ordered by events attended |
+| GET users/top | get the top 10 users ordered by events attended |
+| GET users/bookings/ | get all the users bookings depending on who's signed in |
+| GET users/h/bookings/ | get all the users attended bookings depending on who's signed in |
+| GET users/bookings/all | get all the users bookings ADMIN ONLY |

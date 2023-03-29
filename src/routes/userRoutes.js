@@ -9,7 +9,10 @@ userRouter.get('/top', controller.getTopUsers);
 // GET users/bookings - get all the users bookings depending on who's signed in
 userRouter.get('/bookings', protectRoute, controller.getUserBookings);
 
-// GET users/bookings - get the top 10 users ordered by events attended
+// GET users/h/bookings - get all the users attended bookings depending on who's signed in
+userRouter.get('/h/bookings', protectRoute, controller.getUserBookingsHistory);
+
+// GET users/bookings/all - get all the users bookings ADMIN ONLY
 userRouter.get('/bookings/all', protectRoute, controller.getAllBookings);
 
 
