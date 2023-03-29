@@ -100,7 +100,6 @@ class Event {
     return { vote: 'successful' };
   }
 
-
   async vote(vote) {
     const response = await db.query(
       "UPDATE events SET upvotes=$1 WHERE event_id=$2 RETURNING event_id;",

@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 
 const User = require("../models/user");
+const Booking = require("../models/Booking");
 
 async function register(req, res) {
   try {
@@ -74,6 +75,38 @@ async function getTopUsers(req, res) {
     return res.status(500).json({ error: err.message });
   }
 
+}
+
+async function getUserBookings(req, res) {
+  try {
+    let bookings = await Booking.getUserBookings(req.session.user.user_id)
+    return res.status(200).json(bookings);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+async function getUserBookingsHistory(req, res) {
+  try {
+    let bookings = await Booking.getUserBookingsHistory(req.session.user.user_id)
+    return res.status(200).json(bookings);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+// test route
+async function getAllBookings(req, res) {
+  if (!req.session.user.isAdmin) {
+    return res.status(401).json({ error: 'Unauthorised' })
+  }
+
+  try {
+    let users = await Booking.getAllBookings()
+    return res.status(200).json(users);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 
 }
 
@@ -81,5 +114,8 @@ module.exports = {
   register,
   login,
   logout,
-  getTopUsers
+  getTopUsers,
+  getUserBookings,
+  getAllBookings,
+  getUserBookingsHistory
 };
