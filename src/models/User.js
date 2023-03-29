@@ -48,7 +48,7 @@ class User {
   }
 
   static async listTopUsers() {
-    const response = await db.query("SELECT user_id, username, isAdmin, events_attended FROM users ORDER BY events_attended DESC;");
+    const response = await db.query("SELECT user_id, username, isAdmin, events_attended FROM users ORDER BY events_attended DESC LIMIT 10;");
 
     if (response.rows.length < 1) {
       throw new Error("Unable to list users.");
