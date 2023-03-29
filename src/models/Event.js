@@ -55,11 +55,10 @@ class Event {
   }
 
   static async create(data) {
-    let { owner_id, upvotes, title, description, location } = data;
+    let { owner_id, title, description, location } = data;
 
-    const response = await db.query("INSERT INTO events (owner_id, upvotes, title, description, location) VALUES ($1, $2, $3, $4, $5) RETURNING *", [
+    const response = await db.query("INSERT INTO events (owner_id, title, description, location) VALUES ($1, $2, $3, $4) RETURNING *", [
       owner_id,
-      upvotes,
       title,
       description,
       location
