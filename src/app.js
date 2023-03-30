@@ -11,6 +11,7 @@ let pgStore = new pgSession({
 
 const userRouter = require("./routes/userRoutes");
 const eventRouter = require("./routes/eventRoutes");
+const homeRoutes = require("./routes/homeRoutes"); 
 const authRoutes = require("./routes/authRoutes"); 
 
 function index(req, res) {
@@ -35,6 +36,7 @@ app.use(
 
 // routes
 app.get('/', index)
+app.use('/home', homeRoutes);
 app.use("/auth", authRoutes);
 app.use("/events", eventRouter);
 app.use('/users', userRouter);
