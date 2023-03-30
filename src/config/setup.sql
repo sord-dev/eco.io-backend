@@ -27,7 +27,7 @@ CREATE TABLE events (
     PRIMARY KEY (event_id)
 );
 
-INSERT INTO events (owner_id, upvotes, title, description, location) VALUES (1, 0, 'Library Restoration Project', 'The library is currently running low on staff to help out with keeping the place ran well. Were organising a project to re-excite people about learning!', 'London'), (1, 0, 'Library Restoration Project', 'The library is currently running low on staff to help out with keeping the place ran well. Were organising a project to re-excite people about learning!', 'London');
+INSERT INTO events (owner_id, upvotes, title, description, location) VALUES (1, 0, 'Library Restoration Project', 'The library is currently running low on staff to help out with keeping the place ran well. Were organising a project to re-excite people about learning!', 'London'), (1, 0, 'Photography Competition', 'Test your photography skills for a prize of £100! All skill levels are welcome! May the best photographer win', 'London');
 
 CREATE TABLE bookings (
   booking_id INT GENERATED ALWAYS AS IDENTITY,

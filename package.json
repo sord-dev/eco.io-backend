@@ -7,7 +7,7 @@
     "dev": "nodemon .",
     "setup-db": "node ./src/config/setup-db.js",
     "test": "jest . --forceExit --watchAll",
-    "test-coverage": "jest . --coverage --forceExit",
+    "coverage": "jest --forceExit --coverage --coverageReporters='text-summary'",
     "start": "node ."
   },
   "keywords": [],
