@@ -11,7 +11,7 @@ let pgStore = new pgSession({
 
 const userRouter = require("./routes/userRoutes");
 const eventRouter = require("./routes/eventRoutes");
-const authRoutes = require("./routes/authRoutes"); 
+const authRoutes = require("./routes/authRoutes");
 
 function index(req, res) {
   let data = require('./config/apidocs.js')
@@ -26,7 +26,8 @@ app.use(express.json());
 app.use(cors({ origin: 'http://localhost:2000', credentials: true }));
 app.use(
   session({
-    store:  pgStore,
+    store: pgStore,
+    cookie: { sameSite: 'none', secure: true },
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
