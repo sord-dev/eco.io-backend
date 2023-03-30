@@ -2,6 +2,9 @@ let stringDocs = {
     message: 'Welcome to the eco.io api, check out the routes below:',
     routes: {
         "/": '<-- you are here',
+        "/home": [
+            ["GET /home/", "get top 3 upvoted events"]
+        ],
         "/auth": [
             ["POST /auth/register", "create account include these values { username, email, password }"],
             ["POST /auth/login ", "login to account include these values { username, password }"],

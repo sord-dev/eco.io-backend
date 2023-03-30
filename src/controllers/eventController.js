@@ -24,6 +24,17 @@ const getAllEvents = async (req, res) => {
     }
 }
 
+// GET /top - get top 3 events, used on the homepage
+const getTopThreeEvents = async (req, res) => {
+    try {
+        let response = await Event.getTopThree();
+
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(404).json({ error: error.message })
+    }
+}
+
 // GET events/a/all - get all approved events
 const getAllApprovedEvents = async (req, res) => {
     try {
@@ -34,6 +45,7 @@ const getAllApprovedEvents = async (req, res) => {
         return res.status(404).json({ error: error.message })
     }
 }
+
 // DELETE /events/:event_id - delete event and associated bookings
 const deleteEvent = async (req, res) => {
     if (!req.session.user.isAdmin) {
@@ -152,5 +164,6 @@ module.exports = {
     upvoteEvent,
     getAllEvents,
     approveEvent,
-    getAllApprovedEvents
+    getAllApprovedEvents,
+    getTopThreeEvents
 }

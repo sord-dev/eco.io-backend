@@ -12,6 +12,7 @@ let pgStore = new pgSession({
 const userRouter = require("./routes/userRoutes");
 const eventRouter = require("./routes/eventRoutes");
 const authRoutes = require("./routes/authRoutes");
+const homeRoutes = require("./routes/homeRoutes"); 
 
 function index(req, res) {
   let data = require('./config/apidocs.js')
@@ -36,6 +37,7 @@ app.use(
 
 // routes
 app.get('/', index)
+app.use('/home', homeRoutes);
 app.use("/auth", authRoutes);
 app.use("/events", eventRouter);
 app.use('/users', userRouter);
