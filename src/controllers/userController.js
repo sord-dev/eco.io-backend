@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 
-const User = require("../models/user");
-const Booking = require("../models/Booking");
+const User = require("../models/User.js");
+const Booking = require("../models/Booking.js");
 
 async function register(req, res) {
   try {
