@@ -27,7 +27,7 @@ app.use(cors({ origin: 'http://localhost:2000', credentials: true }));
 app.use(
   session({
     store: pgStore,
-    cookie: { sameSite: 'none', secure: true },
+    cookie: { sameSite: 'None', secure: true },
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
