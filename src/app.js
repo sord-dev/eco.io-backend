@@ -1,7 +1,13 @@
+const { db } = require("./config/postgresdb");
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
-const store = new session.MemoryStore();
+const pgSession = require('connect-pg-simple')(session);
+
+let pgStore = new pgSession({
+  pool: db,
+  createTableIfMissing: true
+})
 
 const userRouter = require("./routes/userRoutes");
 const eventRouter = require("./routes/eventRoutes");
@@ -20,10 +26,10 @@ app.use(express.json());
 app.use(cors({ origin: 'http://localhost:2000', credentials: true }));
 app.use(
   session({
+    store:  pgStore,
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
-    store
   })
 );
 
