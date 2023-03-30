@@ -41,9 +41,20 @@ class Booking {
         if (response.rowCount < 1) {
             throw new Error('No bookings found.')
         }
-        console.log(response.rows);
 
         return response.rows.map(b => new Booking(b));
+    }
+
+    static async deleteAllBookingsFromEvent(event_id) {
+        let sql = "DELETE FROM bookings WHERE event_id = $1 RETURNING booking_id;"
+
+        let response = await db.query(sql, [event_id]);
+
+        if (response.rowCount < 1) {
+            throw new Error('Booking deletion error')
+        }
+
+        return response.rows[0];
     }
 
     static async create(data) {

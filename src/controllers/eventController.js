@@ -34,7 +34,7 @@ const getAllApprovedEvents = async (req, res) => {
         return res.status(404).json({ error: error.message })
     }
 }
-
+// DELETE /events/:event_id - delete event and associated bookings
 const deleteEvent = async (req, res) => {
     if (!req.session.user.isAdmin) {
         return res.status(401).json({ error: 'sorry buddy, admins only.' })
@@ -44,9 +44,10 @@ const deleteEvent = async (req, res) => {
         let event = await Event.find(req.params.event_id)
 
         if (event) {
+            let bookings = await Booking.deleteAllBookingsFromEvent(req.params.event_id)
             let deleted = await event.delete()
 
-            return res.status(200).json(deleted);
+            return res.status(200).json({ deleted, bookings });
         }
 
     } catch (error) {
