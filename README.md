@@ -1,5 +1,8 @@
 # eco.io-backend
 
+![image](https://user-images.githubusercontent.com/75338985/228684978-dee0216b-39a8-4468-a62f-5b438540377f.png)
+
+
 ## Requirements
 
 - .env file in root directory (with index.js, package.json)
@@ -10,8 +13,10 @@ Inside of the .env file put these two values:
 ```
 PORT=3000
 DB_URL=[Elephant SQL Instance URL](https://customer.elephantsql.com/instance/create)
+SESSION_SECRET=dhjkasdfasdhsdfkjsdfahgasdffasdgsdgsdfasdf
 ```
 
+*any long string will be sufficient in the SESSION_SECRET row*
 
 - Inside of a terminal from the root directory, install the depenancies of the project.
 
@@ -38,9 +43,10 @@ Expected result:
 |--------------|-------------|
 | POST /auth/login {user details in body} | login to existing account |
 | POST /auth/register {user details in body} | create a user |
-
+| GET /auth/logout {nothing in body} | logout |
 
 login user shape: 
+*to /auth/login*
 ```
 {
     "username": "test_usr",
@@ -49,6 +55,7 @@ login user shape:
 ```
 
 register user shape: 
+*to /auth/register*
 ```
 {
     "username": "admin",
@@ -57,3 +64,50 @@ register user shape:
     "isAdmin": true
 }
 ```
+
+
+**event routes** - AUTH PROTECTED
+
+| Route | Description |
+|--------------|-------------|
+| GET /events/all  | show all events ordered by upvotes |
+| GET events/a/all  | get all approved events |
+| GET /events/ | get all user events (if admin) |
+| PATCH events/v/:event_id | vote for an event (if you don't own it) |
+| PATCH events/a/:event_id | approve an event |
+| POST /events/ {event object in body} | create a new event |
+| DELETE events/:event_id | delete a event |
+
+event shape:
+*to /events/*
+```
+{
+"event_id": 1,
+"owner_id": 2,
+"upvotes": 99,
+"title": "This is the title of the event.",
+"description": "this is the description of the even",
+"location": "London"
+}
+```
+
+event vote shape:
+*to /events/v/:event_id*
+```
+{
+"votes": 1
+}
+// OR
+{
+"votes": -1
+}
+```
+
+**user routes**
+
+| Route | Description |
+|--------------|-------------|
+| GET users/top | get the top 10 users ordered by events attended |
+| GET users/bookings/ | get all the users bookings depending on who's signed in |
+| GET users/h/bookings/ | get all the users attended bookings depending on who's signed in |
+| GET users/bookings/all | get all the users bookings ADMIN ONLY |

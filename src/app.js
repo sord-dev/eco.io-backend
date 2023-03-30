@@ -1,29 +1,37 @@
 const express = require("express");
 const cors = require("cors");
-const userRouter = require("./routes/authRoutes");
+const session = require("express-session");
+const store = new session.MemoryStore();
+
+const userRouter = require("./routes/userRoutes");
+const eventRouter = require("./routes/eventRoutes");
+const authRoutes = require("./routes/authRoutes"); 
+
+function index(req, res) {
+  let data = require('./config/apidocs.js')
+
+  return res.status(200).json(data)
+}
 
 const app = express();
 
 // middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:2000', credentials: true }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: false,
+    store
+  })
+);
 
 // routes
-app.get("/", (req, res) => {
-  res.json({
-    todo: [
-      "allow updating and deleting of users",
-      "allow storage, creating, updating and deleting of events",
-    ],
-    done: [
-      "allow storage, creating of users",
-      "create db",
-      "build auth",
-      "hash passwords",
-    ],
-  });
-});
+app.get('/', index)
+app.use("/auth", authRoutes);
+app.use("/events", eventRouter);
+app.use('/users', userRouter);
 
-app.use("/auth", userRouter);
 
 module.exports = app;
