@@ -20,6 +20,16 @@ class Event {
     return response.rows.map(e => new Event(e));
   }
 
+  static async getTopThree() {
+    const response = await db.query("SELECT * FROM events ORDER BY upvotes DESC LIMIT 3;");
+
+    if (response.rows.length < 1) {
+      throw new Error("Unable to locate events.");
+    }
+
+    return response.rows.map(e => new Event(e));
+  }
+
   static async getAllApproved() {
     const response = await db.query("SELECT * FROM events WHERE approved = true ORDER BY upvotes DESC;");
 
