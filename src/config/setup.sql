@@ -27,11 +27,7 @@ CREATE TABLE events (
     PRIMARY KEY (event_id)
 );
 
-<<<<<<< HEAD
 INSERT INTO events (owner_id, upvotes, title, description, location) VALUES (1, 0, 'Library Restoration Project', 'The library is currently running low on staff to help out with keeping the place ran well. Were organising a project to re-excite people about learning!', 'London'), (1, 0, 'Photography Competition', 'Test your photography skills for a prize of £100! All skill levels are welcome! May the best photographer win', 'London');
-=======
-INSERT INTO events (owner_id, upvotes, title, description, location) VALUES (1, 0, 'Library Restoration Project', 'The library is currently running low on staff to help out with keeping the place ran well. Were organising a project to re-excite people about learning!', 'London'), (1, 0, 'Library Restoration Project', 'The library is currently running low on staff to help out with keeping the place ran well. Were organising a project to re-excite people about learning!', 'London'), (2, 10, 'Canal Clean-Up Initiative', 'Help clean up the local canal and nearby parks, streets, and public spaces. Work with the local council to collect litter , remove weeds, and graffiti clean-up efforts to improve the appearance and cleanliness of the local community. Sacks provided.', 'Florin City'), (2, 17, 'Youth Mentoring Program', 'A volunteer-led program that provides mentoring and support to young people in the local community. Volunteers can offer guidance, advice, and a listening ear to help young people develop their skills, confidence, and self-esteem.', 'East Florin'), (3, 1, 'Community Food Bank', 'A volunteer-led project to collect and distribute food to those in need in the local community. Volunteers can help with food collections, sorting, and distribution to ensure that everyone has access to nutritious food.', 'London'), (1, 1, 'Elderly Sports Program', 'A volunteer-led program that provides opportunities for elderly people to take part in sports and physical activity. Volunteers can help to organize and run sports clubs, events, and activities to promote health and wellbeing in FCC.', 'London');
->>>>>>> dev
 
 CREATE TABLE bookings (
   booking_id INT GENERATED ALWAYS AS IDENTITY,

@@ -45,6 +45,20 @@ class Booking {
         return response.rows.map(b => new Booking(b));
     }
 
+    static async getAllBookingsForEvent(event_id) {
+        let sql = "SELECT Count(events.title) AS booking_count FROM bookings JOIN users ON (bookings.user_id = users.user_id) JOIN events ON (bookings.event_id = users.user_id) WHERE events.event_id = $1;"
+
+        let response = await db.query(sql, [event_id]);
+
+        if (response.rowCount < 1) {
+            throw new Error('No bookings found.')
+        }
+
+        let count = response.rows[0];
+
+        return count;
+    }
+
     static async deleteAllBookingsFromEvent(event_id) {
         let sql = "DELETE FROM bookings WHERE event_id = $1 RETURNING booking_id;"
 

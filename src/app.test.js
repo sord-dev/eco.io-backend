@@ -123,6 +123,8 @@ describe('DB TESTS - /events + /auth', () => {
         expect(response2.statusCode).toBe(201);
         expect(response2.body.approved).toBe(false);
 
+        console.log(response2.body);
+
         let tempEventID = response2.body.event_id;
 
         const response3 = await request.del(`/events/${tempEventID}`);

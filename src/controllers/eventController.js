@@ -35,12 +35,20 @@ const getTopThreeEvents = async (req, res) => {
     }
 }
 
-// GET events/a/all - get all approved events
+// GET events/a/all - get all approved events with their bookies
 const getAllApprovedEvents = async (req, res) => {
     try {
         let response = await Event.getAllApproved();
 
-        return res.status(200).json(response);
+        let data = response.map(async e => {
+            let bookies = await Booking.getAllBookingsForEvent(e.event_id);
+            let item = { ...e, booking_count: parseInt(bookies.booking_count) }
+            return item
+        })
+
+        let resolved = await Promise.all(data);
+
+        return res.status(200).json(resolved);
     } catch (error) {
         return res.status(404).json({ error: error.message })
     }
